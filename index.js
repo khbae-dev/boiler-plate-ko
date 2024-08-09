@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://khbaedev:rkdgus01!@boilerplate.rygsb63.mongodb.n
 .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World!!!')
 })
 
 app.post('/register', (req, res) => {
