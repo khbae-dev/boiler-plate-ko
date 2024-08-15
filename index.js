@@ -47,7 +47,6 @@ app.post('/api/users/login', (req, res) => {
 
     //요청된 이메일이 데이터베이스에 있다면 비밀번호가 맞는지 확인한다.
     target.comparePassword(req.body.password , (err, isMatch) => {
-      console.log("User.comparePassword : ", isMatch)
       if(!isMatch){
         return res.json({ 
           loginSuccess: false, 
@@ -57,16 +56,13 @@ app.post('/api/users/login', (req, res) => {
 
       //비밀번호가 맞다면 토큰을 생성한다.
       target.generateToken((err, user) => {
-        console.log("generateToken return :", err, user);
         if(err) {
           return res.status(400).send(err);
         }
-        console.log("user token: ", user.token)
         //토큰을 저장한다. 쿠키, 로컬
           res.cookie("x_auth", user.token)
           .status(200)
           .json({loginSuccess: true, userId: user._id})
-          console.log("create token :", user.token)
       })
     })
   })

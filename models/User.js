@@ -54,7 +54,6 @@ userSchema.pre('save',function(next){
 })
 
 userSchema.methods.comparePassword = function(plainPassword, cb) {
-    console.log("comparePassword method in")
     bcrypt.compare(plainPassword, this.password, function(err, isMatch) {
         if(err) return cb(err)
             cb(null, isMatch)
@@ -66,7 +65,7 @@ userSchema.methods.generateToken = function(cb) {
     
     //jsonwebtoken을 이용해서 토큰을 생성하기
     var token = jwt.sign(user._id.toHexString(), 'secretToken')
-    console.log("generate method create token :", token)
+
     user.token = token
     user.save().then(() => {
         cb(null, user);
